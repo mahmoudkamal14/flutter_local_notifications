@@ -7,10 +7,14 @@ plugins {
 
 android {
     namespace = "com.example.flutter_local_notifications"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 35
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
+        // Flag to enable support for the new language APIs
+        isCoreLibraryDesugaringEnabled = true
+
+        // Sets Java compatibility to Java 11
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -28,6 +32,8 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -36,7 +42,14 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
         }
+
     }
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    implementation("androidx.window:window:1.0.0")
+    implementation("androidx.window:window-java:1.0.0")
 }
 
 flutter {
